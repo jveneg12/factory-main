@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrarse</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href={% static "css/style.css" %}>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-transparent navbar-expand-lg">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'img/logofactory.jpg' %}" width="200" height="100" class="d-inline-block align-top" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'pc_armados' %}">PC armados <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'laboratorio' %}">Laboratorios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Categorías
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'pc_gamer' %}">PC Gamers</a>
+                        <a class="dropdown-item" href="{% url 'workstations' %}">Workstations</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'home_office' %}">Oficina-Home Office</a>
+                    </div>
+                </li>
+                <a href="{% url 'carrito' %}">
+                  <img src="{% static 'img/carrito-de-compras.png' %}" width="40" height="40" class="d-inline-block align-top" alt="Carrito de compras">
+                </a>
+            </ul>
+            <a href="{% url 'index' %}">
+                <button>Inicio</button>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container-bg">
+        <div class="container mt-4">
+            <form id="myForm2" class="needs-validation" novalidate>
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
+                    <div class="invalid-feedback" id="nombreError" style="display: none;">Por favor ingresa tu nombre.</div>
+                </div>
+                <div class="form-group">
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Ingresa tu apellido" required>
+                    <div class="invalid-feedback" id="apellidoError" style="display: none;">Por favor ingresa tu apellido.</div>
+                </div>
+                <div class="form-group">
+                    <label for="correo">Correo electrónico:</label>
+                    <input type="email" class="form-control" id="correo" name="correo" placeholder="Ingresa tu correo electrónico" required>
+                    <div class="invalid-feedback" id="correoError" style="display: none;">El correo electrónico debe tener el formato correcto (usuario@dominio.com).</div>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono:</label>
+                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingresa tu número de teléfono +56 (9 dígitos)" pattern="[0-9]{9}" required>
+                    <div class="invalid-feedback" id="telefonoError" style="display: none;">El número de teléfono debe tener 9 dígitos.</div>
+                </div>
+                <div class="form-group">
+                    <label for="contraseña">Contraseña:</label>
+                    <input type="password" class="form-control" id="contraseña" name="contraseña" placeholder="Ingresa tu contraseña (mínimo 7 caracteres)" minlength="7" required>
+                    <div class="invalid-feedback" id="contraseñaError" style="display: none;">La contraseña debe tener al menos 7 caracteres.</div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmarContraseña">Confirmar Contraseña:</label>
+                    <input type="password" class="form-control" id="confirmarContraseña" name="confirmarContraseña" placeholder="Confirma tu contraseña" required>
+                    <div class="invalid-feedback" id="confirmarContraseñaError" style="display: none;">Las contraseñas no coinciden.</div>
+                </div>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var form = document.getElementById('myForm2');
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                var nombre = document.getElementById('nombre').value;
+                var apellido = document.getElementById('apellido').value;
+                var correo = document.getElementById('correo').value;
+                var telefono = document.getElementById('telefono').value;
+                var contraseña = document.getElementById('contraseña').value;
+                var confirmarContraseña = document.getElementById('confirmarContraseña').value;
+
+                // Validar formato de nombre
+                if (nombre.trim() === '') {
+                    document.getElementById('nombreError').style.display = 'block';
+                    return;
+                } else {
+                    document.getElementById('nombreError').style.display = 'none';
+                }
+
+                // Validar formato de apellido
+                if (apellido.trim() === '') {
+                    document.getElementById('apellidoError').style.display = 'block';
+                    return;
+                } else {
+                    document.getElementById('apellidoError').style.display = 'none';
+                }
+
+                // Validar formato de correo electrónico
+                var expRegCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                var correoValido = expRegCorreo.test(correo);
+
+                if (!correoValido) {
+                    document.getElementById('correoError').style.display = 'block';
+                    return;
+                } else {
+                    document.getElementById('correoError').style.display = 'none';
+                }
+
+                // Validar longitud de contraseña (mínimo 7 caracteres)
+                if (contraseña.length < 7) {
+                    document.getElementById('contraseñaError').style.display = 'block';
+                    return;
+                } else {
+                    document.getElementById('contraseñaError').style.display = 'none';
+                }
+
+                // Validar formato de número de teléfono (9 dígitos)
+                var expRegTelefono = /^[0-9]{9}$/;
+                var telefonoValido = expRegTelefono.test(telefono);
+
+                if (!telefonoValido) {
+                    document.getElementById('telefonoError').style.display = 'block';
+                    return;
+                } else {
+                    document.getElementById('telefonoError').style.display = 'none';
+                }
+
+                // Validar que las contraseñas coincidan
+                if (contraseña !== confirmarContraseña) {
+                    document.getElementById('confirmarContraseñaError').style.display = 'block';
+                    return;
+                } else {
+                    document.getElementById('confirmarContraseñaError').style.display = 'none';
+                }
+
+                // Mostrar mensaje de éxito y redirigir a la página de inicio
+                alert('¡USUARIO REGISTRADO CON ÉXITO! ¡Bienvenido, ' + nombre + ' ' + apellido + '!');
+                window.location.href = "{% url 'index' %}";
+            });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

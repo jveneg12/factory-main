@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contáctanos</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href={% static "css/style.css" %}>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-transparent navbar-expand-lg">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'img/logofactory.jpg' %}" width="200" height="100" class="d-inline-block align-top" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'index' %}">Inicio <span class="sr-only">(current)</span></a>
+               </li> 
+               <li class="nav-item">
+                    <a class="nav-link" href="{% url 'laboratorio' %}">Laboratorios</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'pc_armados' %}">PC armados <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Categorías
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'pc_gamer' %}">PC Gamers</a>
+                        <a class="dropdown-item" href="{% url 'workstations' %}">Workstations</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'home_office' %}">Oficina-Home Office</a>
+                    </div>
+                </li>
+                <a href="{% url 'carrito' %}">
+                    <img src="{% static 'img/carrito-de-compras.png' %}" width="40" height="40" class="d-inline-block align-top" alt="Carrito de compras">
+                </a>
+            </ul>
+            <a href="{% url 'index' %}">
+                <button>Inicio</button>
+            </a>
+        </div>
+    </nav>
+
+    <div class="contact_form">
+        <div class="formulario">
+            <div class="container">
+                <h1>Formulario de contacto</h1> 
+            </div>
+            <h3>Escríbenos y en breve nos pondremos en contacto contigo</h3>
+
+            <form action="submeter-formulario.php" method="post">
+                <p>
+                    <label for="nombre" class="colocar_nombre">
+                        <span>Nombre</span>
+                        <span class="obligatorio">*</span>
+                    </label>
+                    <input type="text" name="introducir_nombre" id="nombre" required="obligatorio" placeholder="Escribe tu nombre">
+                </p>
+                <p>
+                    <label for="email" class="colocar_email">
+                        <span>Email</span>
+                        <span class="obligatorio">*</span>
+                    </label>
+                    <input type="email" name="introducir_email" id="email" required="obligatorio" placeholder="Escribe tu Email">
+                </p>
+                <p>
+                    <label for="telefono" class="colocar_telefono">
+                        <span>Teléfono</span>
+                    </label>
+                    <input type="tel" name="introducir_telefono" id="telefono" placeholder="Escribe tu teléfono">
+                </p>
+                <p>
+                    <label for="mensaje" class="colocar_mensaje">
+                        <span>Mensaje</span>
+                        <span class="obligatorio">*</span>
+                    </label>
+                    <textarea name="introducir_mensaje" class="texto_mensaje" id="mensaje" required="obligatorio" placeholder="Deja aquí tu comentario..."></textarea>
+                </p>
+                <button type="submit" name="enviar_formulario" id="enviar">
+                    <p>Enviar</p>
+                </button>
+                <p class="aviso">
+                    <span class="obligatorio"> * </span>los campos son obligatorios.
+                </p>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
