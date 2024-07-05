@@ -53,6 +53,51 @@
                 <button>Registrarse</button>
             </a>
         </div>
+
+{% comment %} prueba y configuraciones de login {% endcomment %}
+
+<ul>
+    <li {%if clase == 'inicio'%}
+    class="current" {%endif%}><a href="/">Inicio</a></li>
+    <li>
+        {% if user.is_authenticated %}
+        
+        <a href="#">{{user.username}}</a>
+        <ul>
+            <li class="nav-item">
+            <a href="{% url 'perfil'%}">Mi Perfil</a>
+        </li>
+            <form id="logoutForm" action="accounts/logout/" method="post" class="navbar-right">
+                {% csrf_token %}
+                <li ><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
+                </ul>
+            </form>
+
+        
+        {% else %}
+        <li class="nav-item">
+            <a href="{% url 'login'%}">Login</a>
+          </li>
+        {% endif %}
+    </li>
+    <li {%if clase == 'galeria'%}
+    class="current" {%endif%}><a href="{% url 'galeria'%}">Galeria</a></li>
+    {% if user.is_authenticated %}
+
+    {% else %}
+    <li {%if clase == 'registro'%}
+    class="current" {%endif%}><a href="{% url 'registro'%}">Registro</a></li>
+    {% endif %}
+     {% comment %} <li><a href="two-sidebar.html">Two Sidebar</a></li>
+    <li><a href="no-sidebar.html">No Sidebar</a></li>  {% endcomment %}
+</ul>
+
+
+
+
+
+
+
     </nav>
 
     <h1 class="text-center">BIENVENIDOS A MASTER FACTORY</h1>
