@@ -1,8 +1,9 @@
 # factory/views.py
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.utils import timezone
+from .models import Solicitud
 # from django.contrib.auth.decorators import login_required
 
 def index(request):
@@ -16,8 +17,16 @@ def laboratorio(request):
 def home(request):
     return render(request, 'demo/index.html')
 
-def contacto(request):
-    return render(request, 'demo/contacto.html')
+def contacto_list(request):
+    return render(request, 'demo/contacto_list.html')
+
+def registrarsolicitud(request):
+    codigo=request.POST['txtCodigo']
+    nombre=request.POST['txtNombre']
+    cantidad=request.POST['numCantidad']
+
+    solicitud = solicitud.objects.create(codigo=codigo, nombre=nombre, cantidad= cantidad)
+    return redirect('/')
 
 def pc_armados(request):
     return render(request, 'demo/pc_armados.html')
@@ -61,3 +70,8 @@ def get_current_users():
 
 def transbank(request):
     return render(request, 'demo/transbank.html')
+
+
+def gestionsolicitudes(request):
+    solicitud = solicitud.objects.all()
+    return render(request, "demo/gestionsolicitudes.html", {"solicitud": solicitud})

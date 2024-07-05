@@ -1,17 +1,15 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenidos</title>
-    {% load static %}
+    <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href={% static "css/style.css" %} />
+    <link rel="stylesheet" href={% static "css/estilo.css" %}>
 </head>
 <body>
-    {% block content %}
 
-    {% comment %} BARRA DE NAVEGACION {% endcomment %}
     <nav class="navbar navbar-dark bg-transparent navbar-expand-lg">
         <a class="navbar-brand" href="{% url 'index' %}">
             {% comment %} conexión a imagen {% endcomment %}
@@ -19,7 +17,7 @@
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-            </button>
+        </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
@@ -32,7 +30,7 @@
                     <a class="nav-link" href="{% url 'pc_armados' %}">PC armados <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
+                    <a class="nav-link" href="{% url 'contacto_list' %}">Contacto</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -53,102 +51,101 @@
                 <button>Registrarse</button>
             </a>
         </div>
-
-{% comment %} prueba y configuraciones de login {% endcomment %}
-
-<ul>
-    <li {%if clase == 'inicio'%}
-    class="current" {%endif%}><a href="/">Inicio</a></li>
-    <li>
-        {% if user.is_authenticated %}
-        
-        <a href="#">{{user.username}}</a>
-        <ul>
-            <li class="nav-item">
-            <a href="{% url 'perfil'%}">Mi Perfil</a>
-        </li>
-            <form id="logoutForm" action="accounts/logout/" method="post" class="navbar-right">
-                {% csrf_token %}
-                <li ><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
-                </ul>
-            </form>
-
-        
-        {% else %}
-        <li class="nav-item">
-            <a href="{% url 'login'%}">Login</a>
-          </li>
-        {% endif %}
-    </li>
-    <li {%if clase == 'galeria'%}
-    class="current" {%endif%}><a href="{% url 'galeria'%}">Galeria</a></li>
-    {% if user.is_authenticated %}
-
-    {% else %}
-    <li {%if clase == 'registro'%}
-    class="current" {%endif%}><a href="{% url 'registro'%}">Registro</a></li>
-    {% endif %}
-     {% comment %} <li><a href="two-sidebar.html">Two Sidebar</a></li>
-    <li><a href="no-sidebar.html">No Sidebar</a></li>  {% endcomment %}
-</ul>
-
-
-
-
-
-
-
     </nav>
 
-    <h1 class="text-center">BIENVENIDOS A MASTER FACTORY</h1>
-    <div class="container mt-4">
-        <div class="row mb-4">
-            <div class="col-sm-12">
-                <h2 class="text-center">TIPOS DE PC A LA VENTA!</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="card card-custom">
-                    <div class="card-body">
-                        <h5 class="card-title">PC GAMERS</h5>
-                        <a href="{% url 'pc_gamer' %}">
-                            <img src={% static 'img/pcworkstation.jpg' %} class="card-img-top" alt="PC Gamer">
-                        </a>
-                        <p class="card-text"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="card card-custom">
-                    <div class="card-body">
-                        <h5 class="card-title">WORKSTATIONS</h5>
-                        <a href="{% url 'workstations' %}">
-                            <img src={% static 'img/pcworkstation.jpg' %} class="card-img-top" alt="Workstation">
-                        </a>
-                        <p class="card-text"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="card card-custom">
-                    <div class="card-body">
-                        <h5 class="card-title">OFICINA - HOME OFFICE</h5>
-                        <a href="{% url 'home_office' %}">
-                            <img src={% static 'img/pchome.jpg'%} class="card-img-top" alt="Oficina - Home Office">
-                        </a>
-                        <p class="card-text"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    
+    <h1>SOLICITUDES</h1>
+<div class="container">
+<div class="row">
+    <table class="table-responsive">
+        <thead>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        {% comment %} <th></th>
+                        <th colspan="2">Opciones</th> {% endcomment %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in solicitud %}
+                    <tr>
+                        <td>{{s.codigo}}</td>
+                        <td>{{s.nombre}}</td>
+                        <td>{{s.cantidad}}</td>
+                        {% comment %} <td><a href="edicionCurso/{{c.codigo}}" class="btn btn-info">Editar</a></td>
+                        <td><a href="eliminarCurso/{{c.codigo}}" class="btn btn-danger btnEliminacion">Eliminar</a></td> {% endcomment %}
+                    </tr> 
+                    {% endfor %}
+                </tbody>
+            </table>
+        </tbody>
+      </table>
     </div>
-    <a href="{% url 'transbank' %}">
-        <img src={% static 'img/transbank.png'%}  class="mt-4" style="display: block; margin-left: auto; margin-right: auto; width: 400px; height: 160px;">
-    </a>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
-    {% endblock  %}
+</div> 
+
+<div class="contact_form">
+    <div class="formulario">
+        <div class="container">
+            <h1>Formulario de contacto</h1> 
+        </div>
+        <h3>Escríbenos y en breve nos pondremos en contacto contigo</h3>
+
+        <form action="" method="POST">  {% csrf_token %}
+            <p>
+                <label for="Codigo" class="colocar_codigo">
+                    <span>Codigo</span>
+                    <span class="obligatorio">*</span>
+                </label>
+                <input type="text" name="txtCodigo" id="txtCodigo" required="obligatorio" placeholder="Escribe tu codigo">
+            </p>
+
+                  {% comment %} segunda casilla {% endcomment %}
+            <p>
+                <label for="Nombre" class="colocar_nombre">
+                    <span>Nombre y apellido</span>
+                    <span class="obligatorio">*</span>
+                 </label>
+                <input type="text" name="txtNombre" id="txtNombre" required="obligatorio" placeholder="Escribe tu nombre y apellido">
+           </p>
+
+            {% comment %} tercera casilla {% endcomment %}
+            <p>
+                <label for="cantidad" class="colocar_cantidad">
+                    <span>Cantidad</span>
+                    <span class="obligatorio">*</span>
+                </label>
+                <input type="text" name="numCantidad" id="numCantidad" required="obligatorio" placeholder="Escribe la cantidad propuesta">
+            </p>
+
+
+            <button type="submit" >
+                enviar
+            </button>
+            <p class="aviso">
+                <span class="obligatorio"> * </span>los campos son obligatorios.
+            </p>
+        </form>
+    </div>
+</div>
+    {% block body %} 
+    
+    {% endblock %}
+    
+   
+   
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
