@@ -15,6 +15,11 @@ urlpatterns = [
     path('registrarse/', views.registrarse, name='registrarse'),
     path('transbank/', views.transbank, name='transbank'),
     path('gestionsolicitudes/', views.gestionsolicitudes, name='gestionsolicitudes'),
-    path('registrarsolicitud/', views.registrarsolicitud, name= 'registrarsolicitud' )
+    # path('registrarsolicitud/', views.registrarsolicitud, name= 'registrarsolicitud' )
     # path('crud', views.crud, name='crud’),
+
+    path('', views.index, name='index'),
+    path('galeria', views.galeria, name='galeria'),
+    path('registro', views.registro, name='registro'),
+    path('perfil', views.perfil, name='perfil'),
 ]
